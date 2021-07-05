@@ -6,24 +6,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FileFunctions
 {
+    // pour extraire l'extension d'un fichier
     public function extension($file): string
     {
         return (strtolower(pathinfo($file, PATHINFO_EXTENSION)));
     }
-    /**
-     * pour extraine un string entre 2 string ou charactères
-     *
-     * @param string $string    chaine
-     * @param string $stringdeb chaine de début
-     * @param string $stringfin chaine de fin
-     * @return string
-     */
-    public function chaine_extract($string, $stringdeb, $stringfin)
-    {
-        $deb = strpos($string, $stringdeb);
-        $fin = strpos($string, $stringfin, $deb);
-        return substr($string, $deb + strlen($stringdeb), $fin - $deb - strlen($stringdeb));
-    }
+
+    // for copy dir with recursivity
     function copydir($src, $dst)
     {
         $dir = opendir($src);
@@ -39,6 +28,7 @@ class FileFunctions
         }
         closedir($dir);
     }
+    //remove dir with recursivity
     function deletedir($dir)
     {
         if (!file_exists($dir)) {
@@ -61,7 +51,8 @@ class FileFunctions
 
         return rmdir($dir);
     }
-    function move($origine, $destination)
+    //move directory with recursivity
+    function movedir($origine, $destination)
     {
 
         //création des réperoitre de destination s'il n'existe pas

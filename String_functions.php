@@ -6,10 +6,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class String_functions
 {
-    public function extension($file): string
-    {
-        return (strtolower(pathinfo($file, PATHINFO_EXTENSION)));
-    }
     /**
      * pour extraine un string entre 2 string ou charactères
      *
