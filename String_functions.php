@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\CMService;
 
 use Symfony\Component\HttpFoundation\Response;
 
