@@ -44,26 +44,12 @@ class String_functions
         return substr_replace((string)$chaine, $insert, $pos, 0);
     }
     /* ------------------------------------------------------------------------------------------------------------------ */
-    /*             EXTRAIT LE TEXTE ENTRE 2 BALISE (PAR EXEMPLE 'H1', VA RETOURNER LE TEXTE ENTRE <H1 ET LE PROCHAIN <H1) */
+    /*                                                       RÉCUPÈRE UN TEXTE ENTRE UNE BALISE (EXMPLE <H1> TEXTE </H1>) */
     /* ------------------------------------------------------------------------------------------------------------------ */
-    function balise_extract($string, $balise)
+    function getTextBetweenTags($string, $tagname)
     {
-        $start = strpos($string, '<' . $balise);
-        if ($start !== false) {
-            $end = strpos($string, '>', $start);
-            $start2 = strpos($string, '<' . $balise, $end);
-            return substr($string, $start, $start2 - $start);
-        } else
-            return false;
-    }
-    function balise_extract_all($string, $balise, $offset = 0)
-    {
-        while ($start = strpos($string, '<' . $balise, $offset)) {
-            $end = strpos($string, '>', $start);
-            $start2 = strpos($string, '<' . $balise, $end);
-            $res[] = substr($string, $start, $start2 - $start);
-            $offset = strpos($string, '>', $start2);
-        }
-        return $res;
+        $pattern = "/<$tagname ?.*>(.*)<\/$tagname>/";
+        preg_match_all($pattern, $string, $matches);
+        return $matches;
     }
 }
