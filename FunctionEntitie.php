@@ -27,16 +27,21 @@ class FunctionEntitie
     }
 
 
-
-    public function reorder($repository): array
+    // renvoie un tableau réorganiser d'un tableau ou d'un repository complet
+    // si pas de donnees, on fait un findall 
+    public function reorder($repository, $donnees = null): array
     {
         $array = [];
-        $objet = $this->em->getRepository("App:" . ucfirst($repository))->findall();
+        //si on a pas données un array on va chercher toutes les données du repository
+        if (!$donnees)
+            $donnees = $this->em->getRepository("App:" . ucfirst($repository))->findall();
+        //on récupère le trie enregitsré dans la bd
         if ($base = $this->em->getRepository("App:Sortable")->findOneBy(['entite' => ucfirst($repository)])) {
             $sortable = explode(',', $base->getordre()); //tableau des ordres
+            //on liste les tries
             foreach ($sortable as $index => $num) {
                 $res =  array_filter(
-                    $objet,
+                    $donnees,
                     function ($e) use (&$num) {
                         return $e->getId() == $num;
                     }
@@ -44,6 +49,6 @@ class FunctionEntitie
                 $array[$index] = reset($res);
             }
             return $array;
-        } else return $objet;
+        } else return $donnees;
     }
 }
