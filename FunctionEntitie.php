@@ -51,4 +51,16 @@ class FunctionEntitie
             return $array;
         } else return $donnees;
     }
+    //funtion qui récupère toutes les données d'un field
+    public function getAllOfFields($repository, $field, $removeDoublon = true): string
+    {
+        $tabres = [];
+        foreach ($this->em->getRepository("App:" . ucfirst($repository))->findall() as $entitie) {
+            $methode = 'get' . ucfirst($field);
+            $tab = explode(",", $entitie->$methode());
+            $tabres = array_merge($tabres, $tab);
+        }
+        if ($removeDoublon) return implode(',', array_unique($tabres));
+        else return implode(',', $tabres);
+    }
 }
