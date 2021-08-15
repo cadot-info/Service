@@ -9,7 +9,7 @@ last %}
 		{% elseif action=='copy' %}Duplication
 		{% elseif action=='edit' %}Edition
 	{% endif %}
-	¤E¤
+	¤Entity¤
 {% endblock %}
 
 {% block body %}
@@ -20,7 +20,7 @@ last %}
 				{% elseif action=='copy' %}Dupliquer
 				{% elseif action=='edit' %}Editer
 			{% endif %}
-			¤E¤
+			¤Entity¤
 			<span class="text-right">
 				<h5>taille maxi d'envoie:{{upload_max()}}
 					Mo</h5>
@@ -35,7 +35,7 @@ last %}
 				{% else %}Mettre à jour
 			{% endif %}
 		</button>
-		<a href="{{ path('¤e¤_index') }}">
+		<a href="{{ path('¤entity¤_index') }}">
 			<button class="btn btn-secondary" type="button">Revenir à la liste</button>
 		</a>
 		<input type="hidden" id="token" value="{{ csrf_token('upload')}}"/>

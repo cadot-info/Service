@@ -1,0 +1,91 @@
+{% extends 'admin/index.html.twig' %}
+{% block title %}
+	¤Entity¤
+{% endblock %}
+{% block body %}
+	¤sortable¤
+	<h1>
+		¤Entity¤
+	</h1>
+
+	<div class=''>
+		<table class='table'>
+			<thead>
+				<tr>
+					¤entete¤
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody id="sortable" style="cursor:move;">
+				{% for  ¤Entity¤  in  ¤entity¤s  %}
+					<tr data-num="{{¤Entity¤.id }}">
+						¤rows¤
+						<td>
+							<form method='post' action="{{ path('¤entity¤_delete', {'id': ¤Entity¤.id }) }}">
+								<div class='row'>
+									<div class='col-3'>
+										<input type="hidden" name="_token" value="{{ csrf_token('delete'~¤Entity¤.id ) }}">
+										<a class='btn btn-xs btn-primary' data-toggle='tooltip' title='Voir' href="{{ path('¤entity¤_show', {'id': ¤Entity¤.id }) }}">
+											<i class="icone fas fa-glasses "></i>
+										</a>
+									</div>
+									<div class='col-3'>
+										<a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Editer' href="{{ path('¤entity¤_edit', {'id': ¤Entity¤.id }) }}">
+											<i class="icone fas fa-pen "></i>
+										</a>
+									</div>
+									<div class='col-3'>
+										<a class='btn btn-xs btn-secondary' data-toggle='tooltip' title='Dupliquer' href="{{ path('¤entity¤_copy',{'id': ¤Entity¤.id }) }}">
+											<i class="icone fas fa-copy "></i>
+										</a>
+									</div>
+									{% if action=='deleted' %}
+										<div class='col-3'>
+											<button class="btn btn-xs btn-warning " title="restaurer" name="delete_restore">
+												<i class="icone fas fa-trash-restore "></i>
+											</button>
+
+											<button class="btn btn-xs btn-danger " title="supprimer définitivement" onclick="return confirm('Etes-vous sûr de vouloir effacer cet item?');" name="delete_delete">
+
+												<i class="icone fas fa-trash "></i>
+											</button>
+										</div>
+
+									{% else %}
+										<div class='col-3'>
+											<button class="btn btn-xs btn-warning " title="mettre dans la corbeille" name="delete_softdelete">
+												<i class="icone fas fa-trash "></i>
+											</button>
+										</div>
+
+									{% endif %}
+								</div>
+							</form>
+						</td>
+					</tr>
+
+				{% else %}
+					<tr>
+						<td colspan="11">Aucun enregistrement</td>
+					</tr>
+				{% endfor %}
+
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<div class="col">
+			<a class='btn btn-primary' data-toggle='tooltip' title='ajouter enregistrement' href="{{ path('¤entity¤_new') }}">Ajouter un enregistrement</a>
+		</div>
+		{% if action=='deleted' %}
+			<div class="col-auto">
+				<a class='text-muted ' href="{{ path('¤entity¤_index') }}">voir les enregistrements</a>
+			</div>
+		{% else %}
+			<div class="col-auto">
+				<a class='text-muted ' href="{{ path('¤entity¤_deleted') }}">voir les enregistrements supprimés</a>
+			</div>
+		{% endif %}
+	</div>
+
+{% endblock %}

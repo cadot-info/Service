@@ -3,12 +3,12 @@
 namespace  App\Controller;
 
 use DateTimeImmutable;
-use App\Entity\¤E¤;
-use App\Form\¤E¤Type;
+use App\Entity\¤Entity¤;
+use App\Form\¤Entity¤Type;
 
 ¤autocompleteService¤;
 
-use App\Repository\¤E¤Repository;
+use App\Repository\¤Entity¤Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,109 +16,109 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("admin/¤e¤")
- */ class ¤E¤Controller extends AbstractController
+ * @Route("admin/¤entity¤")
+ */ class ¤Entity¤Controller extends AbstractController
 {
     /**
-     * @Route("/", name="¤e¤_index", methods={"GET"})
+     * @Route("/", name="¤entity¤_index", methods={"GET"})
      */
-    public function index(¤E¤Repository $¤e¤Repository): Response
+    public function index(¤Entity¤Repository $¤entity¤Repository): Response
     {
-        return $this->render('¤e¤/index.html.twig', [
-            '¤e¤s' => $¤e¤Repository->findBy(['deletedAt' => null]),
+        return $this->render('¤entity¤/index.html.twig', [
+            '¤entity¤s' => $¤entity¤Repository->findBy(['deletedAt' => null]),
         ]);
     }
     /**
-     * @Route("/deleted", name="¤e¤_deleted", methods={"GET"})
+     * @Route("/deleted", name="¤entity¤_deleted", methods={"GET"})
      */
-    public function deleted(¤E¤Repository $¤e¤Repository): Response
+    public function deleted(¤Entity¤Repository $¤entity¤Repository): Response
     {
-        $tab¤E¤s = [];
-        foreach ($¤e¤Repository->findAll() as $¤e¤) {
-            if ($¤e¤->getDeletedAt() != null) $tab¤E¤s[] = $¤e¤;
+        $tab¤Entity¤s = [];
+        foreach ($¤entity¤Repository->findAll() as $¤entity¤) {
+            if ($¤entity¤->getDeletedAt() != null) $tab¤Entity¤s[] = $¤entity¤;
         }
-        return $this->render('¤e¤/index.html.twig', [
-            '¤e¤s' => $tab¤E¤s
+        return $this->render('¤entity¤/index.html.twig', [
+            '¤entity¤s' => $tab¤Entity¤s
         ]);
     }
     /**
-     * @Route("/new", name="¤e¤_new", methods={"GET","POST"})
+     * @Route("/new", name="¤entity¤_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
-        $¤e¤ = new ¤E¤();
-        $form = $this->createForm(¤E¤Type::class, $¤e¤);
+        $¤entity¤ = new ¤Entity¤();
+        $form = $this->createForm(¤Entity¤Type::class, $¤entity¤);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($¤e¤);
+            $entityManager->persist($¤entity¤);
             $entityManager->flush();
-            return $this->redirectToRoute('¤e¤_index');
+            return $this->redirectToRoute('¤entity¤_index');
         }
-        return $this->render('¤e¤/new.html.twig', [
+        return $this->render('¤entity¤/new.html.twig', [
             ¤autocompleteRender¤,
-            '¤e¤' => $¤e¤,
+            '¤entity¤' => $¤entity¤,
             'form' => $form->createView()
         ]);
     }
     /**
-     * @Route("/{id}", name="¤e¤_show", methods={"GET"})
+     * @Route("/{id}", name="¤entity¤_show", methods={"GET"})
      */
-    public function show(¤E¤ $¤e¤): Response
+    public function show(¤Entity¤ $¤entity¤): Response
     {
-        return $this->render('¤e¤/show.html.twig', [
-            '¤e¤' => $¤e¤
+        return $this->render('¤entity¤/show.html.twig', [
+            '¤entity¤' => $¤entity¤
         ]);
     }
     /**
-     * @Route("/{id}/edit", name="¤e¤_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="¤entity¤_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, ¤E¤ $¤e¤): Response
+    public function edit(Request $request, ¤Entity¤ $¤entity¤): Response
     {
-        $form = $this->createForm(¤E¤Type::class, $¤e¤);
+        $form = $this->createForm(¤Entity¤Type::class, $¤entity¤);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('¤e¤_index');
+            return $this->redirectToRoute('¤entity¤_index');
         }
-        return $this->render('¤e¤/new.html.twig', [
+        return $this->render('¤entity¤/new.html.twig', [
             ¤autocompleteRender¤,
-            '¤e¤' => $¤e¤,
+            '¤entity¤' => $¤entity¤,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}/copy", name="¤e¤_copy", methods={"GET","POST"})
+     * @Route("/{id}/copy", name="¤entity¤_copy", methods={"GET","POST"})
      */
-    public function copy(¤E¤ $¤e¤c): Response
+    public function copy(¤Entity¤ $¤entity¤c): Response
     {
-        $¤e¤ = clone $¤e¤c;
+        $¤entity¤ = clone $¤entity¤c;
         $em = $this->getDoctrine()->getManager();
-        $em->persist($¤e¤);
+        $em->persist($¤entity¤);
         $em->flush();
-        return $this->redirectToRoute('¤e¤_index');
+        return $this->redirectToRoute('¤entity¤_index');
     }
 
     /**
-     * @Route("/{id}", name="¤e¤_delete", methods={"POST"})
+     * @Route("/{id}", name="¤entity¤_delete", methods={"POST"})
      */
-    public function delete(Request $request, ¤E¤ $¤e¤): Response
+    public function delete(Request $request, ¤Entity¤ $¤entity¤): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $¤e¤->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $¤entity¤->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             if ($request->request->has('delete_delete'))
-                $entityManager->remove($¤e¤);
+                $entityManager->remove($¤entity¤);
             if ($request->request->has('delete_restore'))
-                $¤e¤->setDeletedAt(null);
+                $¤entity¤->setDeletedAt(null);
             if ($request->request->has('delete_softdelete'))
-                $¤e¤->setDeletedAt(new DateTimeImmutable('now'));
+                $¤entity¤->setDeletedAt(new DateTimeImmutable('now'));
             $entityManager->flush();
         }
         if ($request->request->has('delete_softdelete'))
-            return $this->redirectToRoute('¤e¤_index');
+            return $this->redirectToRoute('¤entity¤_index');
         else
-            return $this->redirectToRoute('¤e¤_deleted');
+            return $this->redirectToRoute('¤entity¤_deleted');
     }
 }
