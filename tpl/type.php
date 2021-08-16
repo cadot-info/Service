@@ -1,6 +1,6 @@
 <?php
 
-namespace App\src\CMService\tpl;
+namespace App\CMService\tpl;
 
 use App\Entity\¤Entity¤;
 
