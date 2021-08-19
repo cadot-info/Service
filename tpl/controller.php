@@ -2,7 +2,7 @@
 
 namespace  App\Controller;
 
-use DateTimeImmutable;
+use DateTime;
 use App\Entity\¤Entity¤;
 use App\Form\¤Entity¤Type;
 
@@ -51,6 +51,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $¤entity¤->setCreatedAt(new DateTime('now'));
             $entityManager->persist($¤entity¤);
             $entityManager->flush();
             return $this->redirectToRoute('¤entity¤_index');
@@ -79,6 +80,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $¤entity¤->setUpdatedAt(new DateTime('now'));
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('¤entity¤_index');
         }
@@ -96,6 +98,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     {
         $¤entity¤ = clone $¤entity¤c;
         $em = $this->getDoctrine()->getManager();
+        $¤entity¤->setCreatedAt(new DateTime('now'));
         $em->persist($¤entity¤);
         $em->flush();
         return $this->redirectToRoute('¤entity¤_index');
@@ -113,7 +116,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
             if ($request->request->has('delete_restore'))
                 $¤entity¤->setDeletedAt(null);
             if ($request->request->has('delete_softdelete'))
-                $¤entity¤->setDeletedAt(new DateTimeImmutable('now'));
+                $¤entity¤->setDeletedAt(new DateTime('now'));
             $entityManager->flush();
         }
         if ($request->request->has('delete_softdelete'))
