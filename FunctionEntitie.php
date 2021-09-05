@@ -33,10 +33,10 @@ class FunctionEntitie
     {
         $array = [];
         //si on a pas données un array on va chercher toutes les données du repository
-        if (!$donnees)
+        if (\is_null($donnees))
             $donnees = $this->em->getRepository("App:" . ucfirst($repository))->findall();
         //on récupère le trie enregitsré dans la bd
-        if ($base = $this->em->getRepository("App:Sortable")->findOneBy(['entite' => ucfirst($repository)])) {
+        if ($base = $this->em->getRepository("App:CM\Sortable")->findOneBy(['entite' => ucfirst($repository)])) {
             $sortable = explode(',', $base->getordre()); //tableau des ordres
             //on liste les tries
             foreach ($sortable as $index => $num) {
