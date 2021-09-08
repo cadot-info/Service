@@ -18,6 +18,7 @@ class String_functions
     {
         $deb = strpos($string, $stringdeb);
         $fin = strpos($string, $stringfin, $deb);
+        if ($fin === false) $fin = strlen($string);
         return substr($string, $deb + strlen($stringdeb), $fin - $deb - strlen($stringdeb));
     }
     // chaine_remplace($html, 'background-image', ')', 'background-image: url({{file' . $file  . '}})');
@@ -46,33 +47,20 @@ class String_functions
     /* ------------------------------------------------------------------------------------------------------------------ */
     /*                                                       RÉCUPÈRE UN TEXTE ENTRE UNE BALISE (EXMPLE <H1> TEXTE </H1>) */
     /* ------------------------------------------------------------------------------------------------------------------ */
-    function getTextBetweenTags($string, $tagname)
-    {
-        $pattern = "/<$tagname ?.*>(.*)<\/$tagname>/";
-        preg_match_all($pattern, $string, $matches);
-        return $matches;
-    }
-    /* ------------------------------------------------------------------------------------------------------------------ */
-    /*             EXTRAIT LE TEXTE ENTRE 2 BALISE (PAR EXEMPLE 'H1', VA RETOURNER LE TEXTE ENTRE <H1 ET LE PROCHAIN <H1) */
-    /* ------------------------------------------------------------------------------------------------------------------ */
+
     function balise_extract($string, $balise)
     {
-        $start = strpos($string, '<' . $balise);
-        if ($start !== false) {
-            $end = strpos($string, '>', $start);
-            $start2 = strpos($string, '<' . $balise, $end);
-            return substr($string, $start, $start2 - $start);
-        } else
-            return false;
+        preg_match("/<$balise [^>]+>(.*)<\/$balise>/", $string, $match);
+        return $match;
     }
-    function balise_extract_all($string, $balise, $offset = 0)
+    function balise_extract_all($string, $balise)
     {
-        while ($start = strpos($string, '<' . $balise, $offset)) {
-            $end = strpos($string, '>', $start);
-            $start2 = strpos($string, '<' . $balise, $end);
-            $res[] = substr($string, $start, $start2 - $start);
-            $offset = strpos($string, '>', $start2);
-        }
-        return $res;
+        preg_match_all("/<$balise [^>]+>(.*)<\/$balise>/", $string, $match);
+        return $match;
+    }
+    function balise_extract_begin_end($string, $balise, $end)
+    {
+        preg_match_all("/<$balise [^>]+>(.*)<$end/", $string, $match);
+        return $match;
     }
 }
