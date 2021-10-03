@@ -4,6 +4,7 @@ namespace App\CMService;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 /* ------------------------------------------------------------------------------------------------------------------ */
 /*                               FUNCTION QUI PERMET DE RÉARRANGÉ LES DONNÉES D'UNE ENTITÉE EN FONCTION DES SORTABLES */
@@ -83,5 +84,15 @@ class FunctionEntitie
             }
         }
         return array_merge($tab, $reste);
+    }
+    function uploadForFile($entity, $tmp, $name)
+    {
+        $slugger = new AsciiSlugger();
+        //create directory
+        @mkdir('uploads');
+        @mkdir('uploads/' . $entity);
+        $destName = 'uploads/' . $entity . '/' . uniqid() . '¤' . $slugger->slug($name);
+        rename($tmp, $destName);
+        return $destName;
     }
 }
