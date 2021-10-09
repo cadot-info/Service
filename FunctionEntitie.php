@@ -87,11 +87,11 @@ class FunctionEntitie
     }
     function uploadForFile($entity, $tmp, $name)
     {
-        $slugger = new AsciiSlugger();
+        $ff = new FileFunctions();
         //create directory
         @mkdir('uploads');
         @mkdir('uploads/' . $entity);
-        $destName = 'uploads/' . $entity . '/' . uniqid() . '¤' . $slugger->slug($name);
+        $destName = 'uploads/' . $entity . '/' . uniqid() . '_' . $ff->sanitize($name);
         rename($tmp, $destName);
         return $destName;
     }
