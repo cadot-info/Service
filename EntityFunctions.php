@@ -11,14 +11,14 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 /*                               FUNCTION QUI PERMET DE RÉARRANGÉ LES DONNÉES D'UNE ENTITÉE EN FONCTION DES SORTABLES */
 /* ------------------------------------------------------------------------------------------------------------------ */
 // exemple dans un controller et avec un trie des données ensuite
-//   foreach ($EntitieFunctions->reorder('modele') as  $modele) {
+//   foreach ($EntityFunctions->reorder('modele') as  $modele) {
 //             $options = $modele->getOptions();
 //             if (in_array('nouveaute', $options) && !in_array('concept', $options)) {
 //                 $nouveautes[] = $modele;
 //             }
 //         }
 
-class EntitieFunctions
+class EntityFunctions
 {
     protected $em;
 
